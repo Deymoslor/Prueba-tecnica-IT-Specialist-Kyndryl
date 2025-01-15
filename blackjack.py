@@ -22,13 +22,13 @@ def blackjack():
         print("¡La casa tiene doble A! ¡Pierdes!")
         return
     ronda = 1
-    mostrarMano("Jugador", mano_jugador)
-    mostrarMano("Casa", mano_casa)
+    mostrarMano("Jugador", mano_jugador, mazo)
+    mostrarMano("Casa", mano_casa, mazo)
 
     turno_jugador(mazo, mano_jugador)
     turno_casa(mazo, mano_casa)
-    mostrarMano("Jugador", mano_jugador)
-    mostrarMano("Casa", mano_casa)
+    mostrarMano("Jugador", mano_jugador, mazo)
+    mostrarMano("Casa", mano_casa, mazo)
 
     determinar_ganador(mano_jugador, mano_casa)
 
@@ -54,11 +54,15 @@ def verificarDobleAs(mano):
 def calcularPuntaje(mano):
     return sum(valor_carta(carta) for carta in mano)
 
-def mostrarMano(jugador, mano):
+def mostrarMano(jugador, mano, mazo):
     cartas = ', '.join([f"{rango} de {palo}" for rango, palo in mano])
     print(f"{jugador} tiene: {cartas} (Puntaje: {calcularPuntaje(mano)})")
-    if jugador == "casa":
+    if jugador == "Casa":
+        cartasRestantes(mazo)
         print()
+
+def cartasRestantes(mazo):
+    print(f"Cartas restantes en el mazo: {len(mazo)}")
 
 def turno_jugador(mazo, mano):
     if calcularPuntaje(mano) > 21:
