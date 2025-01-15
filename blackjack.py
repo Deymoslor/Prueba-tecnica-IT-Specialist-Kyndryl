@@ -3,6 +3,7 @@ import random
 # Definición de la baraja sin comodines
 SUITS = ['Corazones', 'Diamantes', 'Tréboles', 'Picas']
 RANKS = ['A'] + [str(n) for n in range(2, 11)] + ['J', 'Q', 'K']
+num=0
 
 #Metodo principal juego
 def blackjack():
@@ -88,18 +89,27 @@ def turno_casa(mazo, mano):
     else:
         return False
 
-def determinar_ganador(mano_jugador, mano_casa):
-    puntaje_jugador = calcularPuntaje(mano_jugador)
-    puntaje_casa = calcularPuntaje(mano_casa)
-    print(f"Puntaje final - Jugador: {puntaje_jugador}, Casa: {puntaje_casa}")
-    if puntaje_jugador > 21:
-        print("La casa gana.")
-    elif puntaje_casa > 21 or puntaje_jugador > puntaje_casa:
-        print("¡El jugador gana!")
-    elif puntaje_jugador < puntaje_casa:
-        print("La casa gana.")
+def determinar_ganador(mano_jugador=[], mano_casa=[]):
+    if mano_jugador != [] and mano_casa != []:
+        puntaje_jugador = calcularPuntaje(mano_jugador)
+        puntaje_casa = calcularPuntaje(mano_casa)
+        print(f"Puntaje final - Jugador: {puntaje_jugador}, Casa: {puntaje_casa}")
+        if puntaje_jugador > 21:
+            print("La casa gana. \n")
+        elif puntaje_casa > 21 or puntaje_jugador > puntaje_casa:
+            print("¡El jugador gana! \n")
+        elif puntaje_jugador < puntaje_casa:
+            print("La casa gana. \n")
+        else:
+            print("Empate. \n")
+    opcion = input("¿Deseas continuar jugando (C) o deseas terminar las partidas (T)? ").upper()
+    if opcion == 'C':
+        blackjack()
+    elif opcion == 'T':
+        return 
     else:
-        print("Empate.")
+        print("Opción inválida. Escribe 'C' o 'T'.")
+        return determinar_ganador()
 
 if __name__ == "__main__":
     blackjack()
